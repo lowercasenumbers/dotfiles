@@ -1,17 +1,22 @@
 #!/bin/bash
 
+#Color Vars
+red=`tput setaf 1`
+green=`tput setaf 2`
+reset=`tput sgr0`
+
 #Install golang-go
 if [ ! -d "$HOME/go" ]; then
-	echo 'Installing golang-go'
+	echo "${green} Installing golang-go${reset}"
 	apt-get install golang-go
 else
-	echo "$(tput setaf 2)[+] golang is already installed"
+	echo "${red} [-] golang is already installed ${reset}"
 fi
 
 
 # Setup Tools Dir
 if [ ! -d "$HOME/Tools" ]; then
-	echo 'Creating Tools directory'
+	echo "${green}[+] Creating Tools directory${reset}"
 	mkdir ~/Tools
 else
 	echo 'Tools directory already exists'
@@ -27,5 +32,12 @@ else
 	echo 'Sublist3r already exists'
 fi
 
-
+#Clone Subjack	
+if [ ! -d "$HOME/go/Subjack" ]
+then 
+	echo 'Installing Subjack'
+	go get github.com/haccer/subjack
+else 
+	echo 'Subjack already installed'
+fi
 
