@@ -23,8 +23,7 @@ else
 fi
 
 #Clone Sublist3r
-if [ ! -d "$HOME/Tools/Sublist3r" ]
-then 
+if [ ! -d "$HOME/Tools/Sublist3r" ]; then 
 	echo 'Cloning Sublist3r'
 	cd ~/Tools/
 	git clone https://github.com/aboul3la/Sublist3r.git
@@ -33,8 +32,7 @@ else
 fi
 
 #Clone Subjack	
-if [ ! -d "$HOME/go/Subjack" ]
-then 
+if [ ! -d "$HOME/go/bin/subjack" ]; then 
 	echo 'Installing Subjack'
 	go get github.com/haccer/subjack
 else 
