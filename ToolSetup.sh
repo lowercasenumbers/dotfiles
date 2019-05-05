@@ -10,7 +10,7 @@ if [ ! -d "$HOME/go" ]; then
 	echo "${green} Installing golang-go${reset}"
 	apt-get install golang-go
 else
-	echo "${red} [-] golang is already installed ${reset}"
+	echo "${green} [+] golang is already installed ${reset}"
 fi
 
 
@@ -19,23 +19,23 @@ if [ ! -d "$HOME/Tools" ]; then
 	echo "${green}[+] Creating Tools directory${reset}"
 	mkdir ~/Tools
 else
-	echo 'Tools directory already exists'
+	echo "${green} [+] Tools directory already exist${reset}"
 fi
 
 #Clone Sublist3r
 if [ ! -d "$HOME/Tools/Sublist3r" ]; then 
-	echo 'Cloning Sublist3r'
+	echo "${green} [+] Cloning Sublist3r${reset}"
 	cd ~/Tools/
 	git clone https://github.com/aboul3la/Sublist3r.git
 else 
-	echo 'Sublist3r already exists'
+	echo "${green} [+] Sublist3r already exists${reset}"
 fi
 
 #Clone Subjack	
-if [ ! -d "$HOME/go/bin/subjack" ]; then 
-	echo 'Installing Subjack'
+if [ ! -f "$HOME/go/bin/subjack" ]; then 
+	echo "${green}[+] Installing Subjack${reset}"
 	go get github.com/haccer/subjack
 else 
-	echo 'Subjack already installed'
+	echo "${green} [+] Subjack already installed${reset}"
 fi
 
