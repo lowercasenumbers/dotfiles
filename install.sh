@@ -4,7 +4,7 @@
 cd ~/src/dotfiles
 
 # Define an array of packages to stow
-PACKAGES=("git" "nvim" "tmux" "zsh")
+PACKAGES=("git" "nvim" "tmux" "zsh" "zsh-themes")
 
 # Check if stow is installed
 if ! command -v stow &> /dev/null; then
@@ -55,7 +55,6 @@ if [[ " ${PACKAGES[@]} " =~ " tmux " ]]; then
         echo "Catppuccin theme is already installed."
     fi
 fi
-
 # Loop through each package and stow it
 for pkg in "${PACKAGES[@]}"; do
     if [ "$pkg" == "nvim" ]; then
@@ -63,38 +62,48 @@ for pkg in "${PACKAGES[@]}"; do
         NVIM_DEST="$HOME/.config/nvim"
         echo "Handling Neovim configuration..."
 
-        # Create the destination directory first
         mkdir -p "$NVIM_DEST"
 
-        # Now, check for conflicts on the files within the package
         files_to_check=$(find "$pkg" -maxdepth 1 -mindepth 1)
         for file in $files_to_check; do
             target_path="$NVIM_DEST/$(basename "$file")"
             if ! handle_overwrite "$target_path"; then
-                continue 2 # Skip to the next package
+                continue 2
             fi
         done
 
-        # Stow nvim
         echo "Stowing nvim..."
         stow -v --target="$NVIM_DEST" "$pkg"
 
+    elif [ "$pkg" == "zsh-themes" ]; then
+        # Special handling for zsh themes
+        ZSH_THEMES_DEST="$HOME/.oh-my-zsh/themes"
+        echo "Handling zsh themes configuration..."
+
+        mkdir -p "$ZSH_THEMES_DEST"
+
+        files_to_check=$(find "$pkg" -maxdepth 1 -mindepth 1)
+        for file in $files_to_check; do
+            target_path="$ZSH_THEMES_DEST/$(basename "$file")"
+            if ! handle_overwrite "$target_path"; then
+                continue 2
+            fi
+        done
+
+        echo "Stowing zsh themes..."
+        stow -v --target="$ZSH_THEMES_DEST" "$pkg"
+
     else
-        # General handling for other packages
+        # General handling for other packages (git, tmux, zsh)
         echo "Stowing $pkg..."
-        
-        # Check for conflicts for all files within the package before stowing
         pkg_files=$(find "$pkg" -maxdepth 1 -mindepth 1)
         for file in $pkg_files; do
             target_path="$HOME/$(basename "$file")"
             if ! handle_overwrite "$target_path"; then
-                continue 2 # Skip to the next package
+                continue 2
             fi
         done
 
-        # If no conflicts were found or handled, proceed with stowing
         stow -v --target="$HOME" "$pkg"
     fi
 done
-
-echo "Stowing process complete."
