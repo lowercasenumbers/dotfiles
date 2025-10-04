@@ -5,3 +5,5 @@
 	email = lowercasenumbers@lowercasenumbers.xyz
 [init]
 	defaultBranch = main
+[core]
+	editor = nvim
