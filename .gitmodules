@@ -1,6 +1,6 @@
 [submodule "nvim"]
 	path = nvim
-	url = git@github.com:lowercasenumbers/nvim.git
+	url = git@gitlab.com:lowercasenumbers/nvim.git
 [submodule "zsh-themes"]
 	path = zsh-themes
-	url = git@github.com:lowercasenumbers/zsh-themes.git
+	url = git@gitlab.com:lowercasenumbers/zsh-themes.git
